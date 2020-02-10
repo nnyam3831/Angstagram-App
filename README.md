@@ -2,8 +2,8 @@
 
 Instagram Clone Project
 
-- [] Home
-- [] Search
-- [] Profile
-- [] Notification
-- [] Phto Detail
+- [ ] Home
+- [ ] Search
+- [ ] Profile
+- [ ] Notification
+- [ ] Phto Detail
