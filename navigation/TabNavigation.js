@@ -1,8 +1,8 @@
 import React from "react";
-import Home from "../screens/Home";
-import Search from "../screens/Search";
-import Profile from "../screens/Profile";
-import Notification from "../screens/Notification";
+import Home from "../screens/Tabs/Home";
+import Search from "../screens/Tabs/Search";
+import Profile from "../screens/Tabs/Profile";
+import Notification from "../screens/Tabs/Notification";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createAppContainer } from "react-navigation";
 import { View, Text } from "react-native";

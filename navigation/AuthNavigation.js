@@ -7,11 +7,16 @@ import LogIn from "../screens/Auth/LogIn";
 import SignUp from "../screens/Auth/SignUp";
 import Confirm from "../screens/Auth/Confirm";
 
-const AuthNavigation = createStackNavigator({
-  AuthHome,
-  SignUp,
-  LogIn,
-  Confirm
-});
+const AuthNavigation = createStackNavigator(
+  {
+    AuthHome,
+    SignUp,
+    LogIn,
+    Confirm
+  },
+  {
+    headerMode: "none"
+  }
+);
 
 export default createAppContainer(AuthNavigation);
