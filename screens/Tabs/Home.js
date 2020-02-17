@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import { Picker, AsyncStorage } from "react-native";
 const View = styled.View`
   justify-content: center;
   align-items: center;
@@ -9,8 +9,10 @@ const View = styled.View`
 
 const Text = styled.Text``;
 
-export default () => (
-  <View>
-    <Text>Home</Text>
-  </View>
-);
+export default () => {
+  return (
+    <View>
+      <Text>Homsdsde</Text>
+    </View>
+  );
+};

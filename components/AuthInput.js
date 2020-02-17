@@ -19,19 +19,21 @@ const AuthInput = ({
   keyboardType = "default",
   autoCapitalize = "none",
   onChange,
-  autoCorrect = true
+  autoCorrect = true,
+  secureTextEntry = false
 }) => {
   return (
-    <Container>
-      <TextInput
-        onChangeText={onChange}
-        keyboardType={keyboardType}
-        autoCapitalize={autoCapitalize}
-        placeholder={placeholder}
-        value={value}
-        autoCorrect={autoCorrect}
-      />
-    </Container>
+    // <Container>
+    <TextInput
+      onChangeText={onChange}
+      keyboardType={keyboardType}
+      autoCapitalize={autoCapitalize}
+      placeholder={placeholder}
+      value={value}
+      autoCorrect={autoCorrect}
+      secureTextEntry={secureTextEntry}
+    />
+    // </Container>
   );
 };
 
