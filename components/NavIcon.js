@@ -13,7 +13,7 @@ const NavIcon = ({
   focused = true,
   name,
   color = styles.blackColor,
-  size = 24,
+  size = 30,
   image = false
 }) => {
   return (

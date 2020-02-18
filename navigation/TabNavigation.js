@@ -27,7 +27,7 @@ export default createBottomTabNavigator(
     Home: {
       screen: stackFactory(Home, {
         headerRight: <MessageLink />,
-        headerTitle: <NavIcon name="logo-instagram" size={36} image={true} />
+        headerTitle: <NavIcon name="logo-instagram" size={36} image />
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
