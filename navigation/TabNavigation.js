@@ -5,19 +5,31 @@ import Profile from "../screens/Tabs/Profile";
 import Notification from "../screens/Tabs/Notification";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createAppContainer } from "react-navigation";
-import { View, Text, Platform } from "react-native";
+import { View, Text, Platform, AsyncStorage } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MessageLink from "../components/MessageLink";
 import NavIcon from "../components/NavIcon";
-
+import { useProfileName } from "../AuthContext";
+import { getProfileName } from "./MainNavigation";
+import ProfileHeader from "../components/ProfileHeader";
+import Detail from "../screens/Detail";
+import styles from "../styles";
 // 기본 화면 바탕에 stackFactory를 구현해놓으면 component로 따로 구현하지않아도 됨
+
 const stackFactory = (initialRoute, customConfig) =>
   createStackNavigator({
     InitialRoute: {
       screen: initialRoute,
       navigationOptions: {
         ...customConfig
+      }
+    },
+    Detail: {
+      screen: Detail,
+      navigationOptions: {
+        headerTintColor: styles.blackColor,
+        title: "Photo"
       }
     }
   });
@@ -40,7 +52,7 @@ export default createBottomTabNavigator(
     },
     Search: {
       screen: stackFactory(Search, {
-        title: "Search"
+        headerBackTitle: null
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
@@ -89,7 +101,7 @@ export default createBottomTabNavigator(
     },
     Profile: {
       screen: stackFactory(Profile, {
-        title: "Profile"
+        headerTitle: <ProfileHeader />
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
@@ -101,7 +113,9 @@ export default createBottomTabNavigator(
       }
     }
   },
+
   {
+    initialRouteName: "Profile",
     tabBarOptions: {
       showLabel: false
     }

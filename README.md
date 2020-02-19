@@ -2,8 +2,11 @@
 
 Instagram Clone Project
 
-- [ ] Home
+- [x] Home
 - [ ] Search
 - [ ] Profile
 - [ ] Notification
 - [ ] Phto Detail
+- [ ] Post Photo resizing
+- [ ] Bio button remodeling
+- [ ] toggleLike refetch

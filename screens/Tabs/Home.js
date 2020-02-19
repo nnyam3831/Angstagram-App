@@ -58,13 +58,12 @@ export default () => {
     variables: {
       sort: "createdAt_DESC"
     },
-    fetchPolicy: "network-only"
+    fetchPolicy: "cache-and-network"
   });
   const refresh = async () => {
     try {
       setRefreshing(true);
       await refetch();
-      console.log("Home", data.seeFeed);
     } catch (e) {
       console.log(e);
     } finally {

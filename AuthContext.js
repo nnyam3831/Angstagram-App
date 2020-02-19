@@ -5,7 +5,7 @@ import { AsyncStorage } from "react-native";
 export const AuthContext = createContext();
 export const AuthProvider = ({ isLoggedIn: isLoggedInProp, children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(isLoggedInProp);
-
+  const [profileName, setProfileName] = useState("");
   const logUserIn = async token => {
     try {
       await AsyncStorage.setItem("isLoggedIn", "true");
@@ -24,7 +24,9 @@ export const AuthProvider = ({ isLoggedIn: isLoggedInProp, children }) => {
     }
   };
   return (
-    <AuthContext.Provider value={{ isLoggedIn, logUserIn, logUserOut }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, logUserIn, logUserOut, profileName, setProfileName }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -42,4 +44,8 @@ export const useLogIn = () => {
 export const useLogOut = () => {
   const { logUserOut } = useContext(AuthContext);
   return logUserOut;
+};
+export const useProfileName = () => {
+  const { profileName, setProfileName } = useContext(AuthContext);
+  return [profileName, setProfileName];
 };

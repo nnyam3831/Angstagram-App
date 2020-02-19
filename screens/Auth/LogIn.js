@@ -4,10 +4,10 @@ import AuthInput from "../../components/AuthInput";
 import AuthButton from "../../components/AuthButton";
 import useInput from "../../hooks/useInput";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { Keyboard, Alert } from "react-native";
+import { Keyboard, Alert, AsyncStorage } from "react-native";
 import { useMutation } from "react-apollo-hooks";
 import { LOG_IN_CONFIRM } from "./AuthQueries";
-import { useLogIn } from "../../AuthContext";
+import { useLogIn, useProfileName } from "../../AuthContext";
 
 const View = styled.View`
   justify-content: center;
@@ -20,6 +20,7 @@ export default ({ navigation }) => {
   const emailInput = useInput("");
   const passwordInput = useInput("");
   const logIn = useLogIn();
+  const [profileName, setProfileName] = useProfileName();
   const [loading, setLoading] = useState(false);
   const [confirmLoginMutation] = useMutation(LOG_IN_CONFIRM, {
     variables: {
@@ -40,12 +41,15 @@ export default ({ navigation }) => {
     try {
       setLoading(true);
       const {
-        data: { confirmLogin: token }
+        data: {
+          confirmLogin: [token, name]
+        }
       } = await confirmLoginMutation();
       if (token !== "" || token !== false) {
         // 이제 나중에 이 토큰을 가져와서 인증함
-        console.log(token);
         logIn(token);
+        setProfileName(name);
+        console.log(name);
       }
     } catch (e) {
       console.log(e);
