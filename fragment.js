@@ -38,7 +38,7 @@ export const USER_FRAGMENT = gql`
     bio
     followingCount
     followersCount
-    postsCount
+    postCount
     posts {
       ...PostParts
     }

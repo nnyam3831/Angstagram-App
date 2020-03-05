@@ -11,9 +11,5 @@ const View = styled.View`
 export default () => {
   const [profileName] = useProfileName();
   console.log(profileName);
-  return (
-    <View>
-      <Text>{profileName}</Text>
-    </View>
-  );
+  return <Text>???</Text>;
 };

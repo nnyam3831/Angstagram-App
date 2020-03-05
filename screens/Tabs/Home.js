@@ -1,13 +1,7 @@
 // Feed 불러오기
 import React, { useState } from "react";
 import styled from "styled-components";
-import {
-  Picker,
-  AsyncStorage,
-  TextInput,
-  ScrollView,
-  RefreshControl
-} from "react-native";
+import { Picker, AsyncStorage, TextInput, ScrollView, RefreshControl } from "react-native";
 import ModalSelector from "react-native-modal-selector";
 import SelectInput from "react-native-select-input-ios";
 import constants from "../../constants";
@@ -58,8 +52,9 @@ export default () => {
     variables: {
       sort: "createdAt_DESC"
     },
-    fetchPolicy: "cache-and-network"
+    fetchPolicy: "network-only"
   });
+
   const refresh = async () => {
     try {
       setRefreshing(true);
@@ -71,18 +66,8 @@ export default () => {
     }
   };
   return (
-    <ScrollView
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={refresh} />
-      }
-    >
-      {loading ? (
-        <Loader />
-      ) : (
-        data &&
-        data.seeFeed &&
-        data.seeFeed.map(post => <Post key={post.id} {...post} />)
-      )}
+    <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} />}>
+      {loading ? <Loader /> : data && data.seeFeed && data.seeFeed.map(post => <Post key={post.id} {...post} />)}
     </ScrollView>
   );
 };

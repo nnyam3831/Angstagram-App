@@ -53,11 +53,13 @@ export const ME = gql`
 const Text = styled.Text``;
 
 export default ({ navigation }) => {
-  const { loading, data } = useQuery(ME);
-  console.log(data);
+  const { loading, data, refetch } = useQuery(ME);
+  const { user } = data.me;
+  const { posts } = data.me;
+
   return (
     <ScrollView>
-      {loading ? <Loader /> : data && data.me && <UserProfile {...data.me} />}
+      {loading ? <Loader /> : data && data.me && <UserProfile {...user} posts={posts.reverse()} />}
     </ScrollView>
   );
 };

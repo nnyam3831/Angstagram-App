@@ -30,6 +30,7 @@ const SearchPresenter = ({ term, shouldFetch }) => {
     variables: {
       term
     },
+    fetchPolicy: "network-only",
     skip: !shouldFetch
   });
   const onRefresh = async () => {
@@ -42,18 +43,17 @@ const SearchPresenter = ({ term, shouldFetch }) => {
       setRefreshing(false);
     }
   };
+
+  console.log(term);
+  console.log(data);
   return (
-    <ScrollView
-      refreshControl={
-        <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
-      }
-    >
+    <ScrollView refreshControl={<RefreshControl onRefresh={onRefresh} refreshing={refreshing} />}>
       {loading ? (
         <Loader />
       ) : (
-        data &&
-        data.searchPost &&
-        data.searchPost.map(post => <SquarePhoto key={post.id} {...post} />)
+        <ImageContainer>
+          {data && data.searchPost && data.searchPost.map(post => <SquarePhoto key={post.id} {...post} />)}
+        </ImageContainer>
       )}
     </ScrollView>
   );

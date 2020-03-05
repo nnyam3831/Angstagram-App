@@ -15,39 +15,48 @@ import { getProfileName } from "./MainNavigation";
 import ProfileHeader from "../components/ProfileHeader";
 import Detail from "../screens/Detail";
 import styles from "../styles";
+import UserDetail from "../screens/UserDetail";
 // 기본 화면 바탕에 stackFactory를 구현해놓으면 component로 따로 구현하지않아도 됨
 
 const stackFactory = (initialRoute, customConfig) =>
-  createStackNavigator({
-    InitialRoute: {
-      screen: initialRoute,
-      navigationOptions: {
-        ...customConfig
+  createStackNavigator(
+    {
+      InitialRoute: {
+        screen: initialRoute,
+        navigationOptions: {
+          ...customConfig
+        }
+      },
+      Detail: {
+        screen: Detail,
+        navigationOptions: {
+          headerTintColor: styles.blackColor,
+          title: "Photo"
+        }
+      },
+      UserDetail: {
+        screen: UserDetail,
+        navigationOptions: ({ navigation }) => ({
+          title: navigation.getParam("username")
+        })
       }
     },
-    Detail: {
-      screen: Detail,
-      navigationOptions: {
-        headerTintColor: styles.blackColor,
-        title: "Photo"
+    {
+      defaultNavigationOptions: {
+        headerBacktitle: null
       }
     }
-  });
+  );
 
 export default createBottomTabNavigator(
   {
     Home: {
       screen: stackFactory(Home, {
-        headerRight: <MessageLink />,
+        headerRight: () => <MessageLink />,
         headerTitle: <NavIcon name="logo-instagram" size={36} image />
       }),
       navigationOptions: {
-        tabBarIcon: ({ focused }) => (
-          <NavIcon
-            focused={focused}
-            name={Platform.OS === "ios" ? "ios-home" : "md-home"}
-          />
-        )
+        tabBarIcon: ({ focused }) => <NavIcon focused={focused} name={Platform.OS === "ios" ? "ios-home" : "md-home"} />
       }
     },
     Search: {
@@ -56,10 +65,7 @@ export default createBottomTabNavigator(
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
-          <NavIcon
-            focused={focused}
-            name={Platform.OS === "ios" ? "ios-search" : "md-search"}
-          />
+          <NavIcon focused={focused} name={Platform.OS === "ios" ? "ios-search" : "md-search"} />
         )
       }
     },
@@ -70,12 +76,7 @@ export default createBottomTabNavigator(
         tabBarOnPress: ({ navigation }) => {
           navigation.navigate("PhotoNavigation");
         },
-        tabBarIcon: ({ focused }) => (
-          <NavIcon
-            focused={focused}
-            name={Platform.OS === "ios" ? "ios-add" : "md-add"}
-          />
-        )
+        tabBarIcon: ({ focused }) => <NavIcon focused={focused} name={Platform.OS === "ios" ? "ios-add" : "md-add"} />
       }
     },
     Notification: {
@@ -105,17 +106,14 @@ export default createBottomTabNavigator(
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
-          <NavIcon
-            focused={focused}
-            name={Platform.OS === "ios" ? "ios-person" : "md-person"}
-          />
+          <NavIcon focused={focused} name={Platform.OS === "ios" ? "ios-person" : "md-person"} />
         )
       }
     }
   },
 
   {
-    initialRouteName: "Profile",
+    initialRouteName: "Home",
     tabBarOptions: {
       showLabel: false
     }

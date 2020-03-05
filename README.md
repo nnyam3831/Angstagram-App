@@ -10,3 +10,5 @@ Instagram Clone Project
 - [ ] Post Photo resizing
 - [ ] Bio button remodeling
 - [ ] toggleLike refetch
+
+Home.js에서 refresh시에 Loader말고 기존 화면 나오기

@@ -8,6 +8,7 @@ import { gql } from "apollo-boost";
 import { useMutation } from "react-apollo-hooks";
 import styles from "../styles";
 import * as Animatable from "react-native-animatable";
+import { withNavigation } from "react-navigation";
 export const TOGGLE_LIKE = gql`
   mutation toggleLike($postId: String!) {
     toggleLike(postId: $postId)
@@ -61,7 +62,8 @@ const Post = ({
   likeCount: likeCountProp,
   caption,
   comments = [],
-  isLiked: isLikedProp
+  isLiked: isLikedProp,
+  navigation
 }) => {
   const [isLiked, setIsLiked] = useState(isLikedProp);
   const [likeCount, setLikeCount] = useState(likeCountProp);
@@ -89,13 +91,10 @@ const Post = ({
   return (
     <Container>
       <Header>
-        <Touchable>
-          <Image
-            source={{ uri: user.avatar }}
-            style={{ height: 35, width: 35, borderRadius: 20 }}
-          />
+        <Touchable onPress={() => navigation.push("UserDetail", { username: user.username })}>
+          <Image source={{ uri: user.avatar }} style={{ height: 35, width: 35, borderRadius: 20 }} />
         </Touchable>
-        <Touchable>
+        <Touchable onPress={() => navigation.navigate("UserDetail", { username: user.username })}>
           <HeaderUserContainer>
             <Bold style={{ fontWeight: "500" }}>{user.username}</Bold>
             <Location>{location}</Location>
@@ -137,10 +136,7 @@ const Post = ({
           </Touchable>
           <Touchable>
             <IconContainer>
-              <Ionicons
-                size={28}
-                name={Platform.OS === "ios" ? "ios-text" : "md-text"}
-              />
+              <Ionicons size={28} name={Platform.OS === "ios" ? "ios-text" : "md-text"} />
             </IconContainer>
           </Touchable>
         </IconsContainer>
@@ -149,7 +145,7 @@ const Post = ({
         </Touchable>
 
         <Caption>
-          <Bold style={{ fontSize: 12 }}>{user.username}</Bold> {caption}
+          <Bold style={{ fontSize: 15 }}>{user.username}</Bold> {caption}
         </Caption>
         <Touchable>
           <CommentCount>댓글 보기</CommentCount>
@@ -159,4 +155,4 @@ const Post = ({
   );
 };
 
-export default Post;
+export default withNavigation(Post);
